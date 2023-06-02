@@ -19,12 +19,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(cookieParser());
-// app.use((req, res, next) => {
-//   res.cookie('name' ,"Rahul thakur");
-//   console.log(req.cookies.name);
-//   next();
-// });
+app.use((req, res, next) => {
+  res.cookie('name', 'AltCampus');
+  next();
+});
+app.use((req, res, next) => {
+  console.log(req.cookies);
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
