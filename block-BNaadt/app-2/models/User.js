@@ -7,7 +7,7 @@ var userSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     age: Number,
-    password: { type: String, required: true },
+    password: { type: String, minlenght: 5, required: true },
   },
   { timestamps: true }
 );

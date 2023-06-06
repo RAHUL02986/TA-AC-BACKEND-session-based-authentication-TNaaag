@@ -37,6 +37,9 @@
           method="post"
           class="w-1/3 border-2 p-4 rounded mt-5"
         >
+          <% if(error){ %>
+          <p class="text-red"><%=error %></p>
+          <% }%>
           <input
             type="text"
             name="name"
