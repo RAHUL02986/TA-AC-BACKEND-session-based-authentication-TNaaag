@@ -7,11 +7,18 @@ router.get('/', function (req, res, next) {
   res.render('dashboard');
 });
 router.get('/register', function (req, res, next) {
-  res.render('register');
+  var error = req.flash('error')[0];
+  res.render('register', { error });
 });
 router.post('/register', async (req, res) => {
   try {
     var user = await User.create(req.body);
+
+    if ('email' === user.email) {
+      req.flash('error', 'This email is Taken');
+      res.redirect('/users/register');
+    }
+
     res.redirect('/users/login');
     console.log(user);
   } catch (error) {
