@@ -22,20 +22,23 @@ router.post('/login', async (req, res) => {
   try {
     var { email, password } = req.body;
     if (!email || !password) {
-      res.redirect('/users/login');
+      return res.redirect('/users/login');
     }
     var user = await User.findOne({ email });
     //no user
     if (err) return next(err);
     if (!user) {
-      res.redirect('/users/login');
+      return res.redirect('/users/login');
     }
     //compair password
-    user.verifyPassword(password, (err,result)=>{
-      if(!result){
-        res.redirect('/users/login')
+    user.verifyPassword(password, (err, result) => {
+      if (err) return next(err);
+      if (!result) {
+        return res.redirect('/users/login');
       }
-    })
+      req.session.userId = user.id;
+       res.redirect('/dashboard');
+    });
   } catch (error) {}
 });
 
