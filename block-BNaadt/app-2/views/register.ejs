@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register Page</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-info">
+    <header>
+      <div class="d-flex justify-content-between align-item-baseline">
+        <h2 class="text-success">Home</h2>
+        <nav class="d-flex justify-content-between">
+          <a class="mx-4" href="/">
+            <button class="btn btn-light">Home</button>
+          </a>
+
+          <a class="mx-4" href="/users/register">
+            <button class="btn btn-warning">Register</button>
+          </a>
+          <a class="mx-4" href="/users/login">
+            <button class="btn btn-success">Login</button>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div
+        class="container-sm flex justify-center item-center h-screen border-3"
+      >
+        <form
+          action="/users/register"
+          method="post"
+          class="w-1/3 border-2 p-4 rounded mt-5"
+        >
+          <% if(error){ %>
+          <p class="text-red"><%=error %></p>
+          <% }%>
+          <input
+            type="text"
+            name="name"
+            class="form-control mt-3"
+            placeholder="Enter Your Name"
+          />
+          <input
+            type="email"
+            name="email"
+            class="form-control mt-3"
+            placeholder="Enter Your Email"
+          />
+          <input
+            type="number"
+            name="age"
+            class="form-control mt-3"
+            placeholder="Enter Your Age"
+          />
+          <input
+            type="password"
+            name="password"
+            class="form-control mt-3"
+            placeholder="Enter Your Password"
+          />
+          <div class="align-items-center">
+            <button type="submit" class="btn btn-success mt-3">Register</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
