@@ -17,9 +17,10 @@ userSchema.pre('save', async function (next) {
     next();
   }
 });
+
 userSchema.methods.verifyPassword = function (password, cb) {
   bcrypt.compare(password, this.password, (err, result) => {
-    return cb(err, result);
+    return cb(err, result, this.firstName + ' ' + this.lastName);
   });
 };
 

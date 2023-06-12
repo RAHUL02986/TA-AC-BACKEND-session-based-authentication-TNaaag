@@ -6,19 +6,23 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-require('dotenv').config();
-mongoose
-  .connect('mongodb://127.0.0.1:27017/e-commerce', {
-    useNewUrlParser: true,
-    UseUnifiedTopology: true,
-  })
-  .then(() => console.log('connected'))
-  .catch((err) => console.error(err));
+var flash = require('connect-flash');
 
+require('dotenv').config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-var productRouter = require('./routes/product');
+var productRouter = require('./routes/products');
+var loginRouter = require('./routes/login');
+var registerRouter = require('./routes/register');
+
+mongoose
+  .connect('mongodb://127.0.0.1:27017/e-commerce', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('connected'))
+  .catch((err) => console.error(err));
 var app = express();
 
 // view engine setup
@@ -30,21 +34,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(
   session({
     secret: process.env.SECRET,
-    saveUninitialized: false,
     resave: false,
+    saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 
+app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
-app.use('/product', productRouter);
-
+app.use('/products', productRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

@@ -1,10 +1,9 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let bcrypt = require('bcrypt');
+let Schema = mongoose.Schema;
 
-var adminSchema = new Schema(
+let adminSchema = new Schema(
   {
-    name: String,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
   },
@@ -17,10 +16,13 @@ adminSchema.pre('save', async function (next) {
     next();
   }
 });
+
 adminSchema.methods.verifyPassword = function (password, cb) {
   bcrypt.compare(password, this.password, (err, result) => {
-    return cb(err, result);
+    return cb(err, result, this.firstName + ' ' + this.lastName);
   });
 };
 
-module.exports = mongoose.model('Admin', adminSchema);
+let Admin = mongoose.model('Admin', adminSchema);
+
+module.exports = Admin;
