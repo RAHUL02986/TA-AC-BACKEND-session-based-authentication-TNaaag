@@ -66,9 +66,9 @@
         <% products.forEach(product => { %>
         <hr />
         <div>
-          <h1>Product:<%= product.product %></h1>
+          <h1><%= product.name %></h1>
           <p>price: $<%= product.price %></p>
-          <a href="/product/<%= product._id %>">show more</a>
+          <a href="/products/<%= product.id %>">show more</a>
         </div>
         <% }) %>
       </div>

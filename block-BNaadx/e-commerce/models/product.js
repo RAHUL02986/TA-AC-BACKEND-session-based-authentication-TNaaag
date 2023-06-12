@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let productSchema = new Schema(
   {
-    product: String,
+    name: String,
     quantity: { type: Number, default: 0 },
     price: Number,
     image: String,
@@ -14,6 +14,6 @@ let productSchema = new Schema(
   { timestamps: true }
 );
 
-var Product = mongoose.model('Product', productSchema);
+let Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;
